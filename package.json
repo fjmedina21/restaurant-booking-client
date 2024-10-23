@@ -1,6 +1,6 @@
 {
-  "name": "dispensario-medico",
-  "version": "0.0.0",
+  "name": "reservation-bookig",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o",
@@ -23,10 +23,8 @@
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
     "@ngrx/store": "^16.2.0",
-    "dispensario-medico": "file:",
     "jwt-decode": "^3.1.2",
     "ngx-mask": "^16.4.2",
-    "ngx-print": "^1.3.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
   },

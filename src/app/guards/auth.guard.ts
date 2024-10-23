@@ -14,7 +14,6 @@ export const IsNotLogged: CanActivateFn = (route, state) => {
     return false;
   }
 
-
   return true;
 };
 

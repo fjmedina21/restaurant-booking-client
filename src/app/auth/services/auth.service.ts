@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { enviroments } from 'src/env/environment.dev';
-import { map, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { APIResponse, User } from 'src/app/shared/interfaces/defaultdata.interface';
 import { Router } from '@angular/router';
 import { JWTService } from 'src/app/shared/services/jwt.service';
@@ -12,11 +12,10 @@ import { ChangePassword } from '../interfaces/changePassword.interface';
 export class AuthService {
 
   private baseUrl: string = enviroments.baseURL;
-  private authorization!: string;
-  private userLogged!: User;
-  private LoggedIn: boolean = false;
   private token!: string;
-  public headers!: HttpHeaders;
+  private LoggedIn: boolean = false;
+  private bearerToken!: string;
+  private headers!: HttpHeaders;
 
   constructor(
     private http: HttpClient,
@@ -24,29 +23,24 @@ export class AuthService {
     private jwtService: JWTService,
   ) {
     this.loadLocalStore();
-    this.token = this.getBearerToken();
-    this.headers = new HttpHeaders().set('authorization', this.token!);
+    this.bearerToken = this.getBearerToken();
+    this.headers = new HttpHeaders().set('authorization', this.bearerToken!);
 
   }
 
   private saveLocalStore() {
-    localStorage.setItem('user', JSON.stringify(this.userLogged));
-    localStorage.setItem('token', JSON.stringify(this.authorization));
+    localStorage.setItem('token', JSON.stringify(this.token));
   }
 
   private loadLocalStore() {
-    if (!localStorage.getItem('user')) return;
-    this.userLogged = this.getLoggedUser();
-    this.authorization = this.getToken()!;
+    this.token = this.getToken()!;
   }
 
   login(credenciales: LoginCredentials) {
     const url = `${this.baseUrl}/auth/login`;
     return this.http.post<APIResponse<User>>(url, credenciales)
       .pipe(
-        tap(res => this.authorization = `${res.token}`),
-        map(res => res.data),
-        tap(res => this.userLogged = res[0]),
+        tap(res => this.token = `${res.token}`),
         tap(() => this.saveLocalStore()),
       );
   }
@@ -71,20 +65,16 @@ export class AuthService {
   }
 
   getLoggedUser(): User {
-    return JSON.parse(localStorage.getItem('user')!) as User;
-  }
-
-  setLoggedUser(user: User): void {
-    localStorage.setItem('user', JSON.stringify(user));
+    const { userId, email } = this.jwtService.DecodeToken(this.getToken()!);
+    const user: User = {  staffId: userId, email, firstName: '', lastName: '' };
+    return user;
   }
 
   checkIsLoggedIn() {
-
-    if (!this.getToken() || !this.getLoggedUser()) {
+    if (!this.getToken()) {
       this.LoggedIn = false;
       return;
     };
-
     this.LoggedIn = true;
   }
 
@@ -93,7 +83,8 @@ export class AuthService {
   }
 
   getRole() {
-    return this.jwtService.DecodeToken(this.getToken()!).role;
+    const { role } = this.jwtService.DecodeToken(this.getToken()!);
+    return role;
   }
 
 }

@@ -12,11 +12,6 @@ import { User } from 'src/app/shared/interfaces/defaultdata.interface';
 export class DashboardComponent implements OnInit {
 
   loggedUser!: User;
-  patientsByRecintoCount: number = 0;
-  usersCount: number = 0;
-  consultsCount: number = 0;
-  currentUserRoles!: string[] | string;
-
 
   constructor(
     private authService: AuthService,
@@ -24,6 +19,5 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.loggedUser = this.authService.getLoggedUser();
-    this.currentUserRoles = this.authService.getRole();
   }
 }

@@ -9,10 +9,9 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
 import { OkDialogComponent } from './components/ok-dialog/ok-dialog.component';
 import { BooleanPipe } from './pipes/boolean.pipe';
 import { AgePipe } from './pipes/age.pipe';
-import { NgxPrintModule } from 'ngx-print';
 import { SearchBoxComponent } from './components/search-box/search-box.component';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
-import { LayoutPageComponent } from './layouts/layout-page/layout-page.component';
+import { LayoutPageComponent } from './layout/layout-page.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +33,6 @@ import { LayoutPageComponent } from './layouts/layout-page/layout-page.component
     GenrePipe,
     BooleanPipe,
     AgePipe,
-    NgxPrintModule,
     NgxMaskDirective,
     NgxMaskPipe
   ],

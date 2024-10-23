@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListReservationsComponent } from './components/list-reservations/list-reservations.component';
-import { LayoutPageComponent } from '../shared/layouts/layout-page/layout-page.component';
+import { LayoutPageComponent } from '../shared/layout/layout-page.component';
 
 const routes: Routes = [
   {

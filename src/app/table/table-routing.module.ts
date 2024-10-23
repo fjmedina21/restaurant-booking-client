@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LayoutPageComponent } from '../shared/layouts/layout-page/layout-page.component';
 import { ListTablesComponent } from './components/list-tables/list-tables.component';
+import { LayoutPageComponent } from '../shared/layout/layout-page.component';
 
 const routes: Routes = [
   {
