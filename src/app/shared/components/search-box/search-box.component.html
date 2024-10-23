@@ -1,0 +1,10 @@
+<!-- (keyup.enter)="emitTermValue(txtInput.value)" -->
+
+<input
+  mat-input
+  type="text"
+  [placeholder]="placeholder"
+  class="form-control"
+  (keyup.enter)="onEnterPress(txtInput.value)"
+  #txtInput
+/>

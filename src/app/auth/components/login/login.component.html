@@ -1,0 +1,29 @@
+<div class="cardsContainer">
+  <div *ngIf="isLoading">
+    <shared-loading-spinner></shared-loading-spinner>
+  </div>
+  <mat-card *ngIf="!isLoading" class="logInCard">
+    <mat-card-title class="titleLogIn">Welcome</mat-card-title>
+    <mat-card-content>
+      <div [formGroup]="loginForm">
+        <mat-form-field appearance="fill" class="inputLogIn">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="user@domain.com" required formControlName="email" required/>
+          <mat-error>Email Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="inputLogIn">
+          <mat-label>Password</mat-label>
+          <input type="password" matInput (keyup.enter)="logIn()" required formControlName="password" required/>
+          <mat-error>Password Required</mat-error>
+        </mat-form-field>
+
+        <mat-card-actions>
+          <button mat-raised-button type="s" class="logIn" (click)="logIn()" [disabled]="disableBtn">
+            Login
+          </button>
+        </mat-card-actions>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

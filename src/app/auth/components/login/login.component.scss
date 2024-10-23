@@ -1,0 +1,31 @@
+.cardsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; // Full viewport height
+  background-color: whitesmoke;
+
+  .logInCard {
+    width: 300px; // Adjust as necessary
+    padding: 20px;
+
+    .titleLogIn {
+      text-align: center;
+    }
+
+    .inputLogIn {
+      width: 100%;
+    }
+
+    mat-card-actions {
+      display: flex;
+      justify-content: center;
+
+      .logIn {
+        width: 100%;
+        color: whitesmoke;
+        background-color: #34495e;
+      }
+    }
+  }
+}

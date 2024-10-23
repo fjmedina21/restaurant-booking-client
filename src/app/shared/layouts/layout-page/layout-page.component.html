@@ -1,0 +1,68 @@
+<mat-sidenav-container fullscreen>
+  <mat-sidenav #sidenav mode="over">
+    <mat-nav-list>
+
+      <mat-list-item
+        routerLink="/home"
+        routerLinkActive="active"
+      >
+        <mat-icon matListItemIcon>dashboard</mat-icon>
+        <mat-label>Dashboard</mat-label>
+      </mat-list-item>
+
+      <mat-list-item
+        routerLink="/reservations"
+        routerLinkActive="active"
+      >
+        <mat-icon matListItemIcon>book_online</mat-icon>
+        <mat-label>Resevaciones</mat-label>
+      </mat-list-item>
+
+      <mat-list-item
+        routerLink="/tables"
+        routerLinkActive="active"
+      >
+        <mat-icon matListItemIcon>table_restaurant</mat-icon>
+        <mat-label>Mesas</mat-label>
+      </mat-list-item>
+
+      <mat-list-item
+        routerLink="/staff"
+        routerLinkActive="active"
+      >
+        <mat-icon matListItemIcon>groups</mat-icon>
+        <mat-label>Staff</mat-label>
+      </mat-list-item>
+
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-toolbar>
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="spacer"></span>
+
+    <div class="profile">
+      <div class="example-button-container">
+        <button class="btn-profile" mat-mini-fab [matMenuTriggerFor]="menu">
+          <mat-icon class="icon">account_circle</mat-icon>
+        </button>
+      </div>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="changePassword()">
+          <mat-icon>password</mat-icon>
+          <span>Change Password</span>
+        </button>
+        <button mat-menu-item  (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </div>
+  </mat-toolbar>
+
+  <div class="container p-2">
+    <router-outlet></router-outlet>
+  </div>
+</mat-sidenav-container>
