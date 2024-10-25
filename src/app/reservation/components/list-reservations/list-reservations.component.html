@@ -1,1 +1,58 @@
-<h1>list-reservations works!</h1>
+<div *ngIf="!isLoading" class="container">
+  <mat-form-field >
+    <mat-label>Select Status</mat-label>
+    <mat-select (selectionChange)="onStatusSelected($event.value)">
+      <mat-option value="">All</mat-option>
+      <mat-option value="pending">Pending</mat-option>
+      <mat-option value="rejected">Rejected</mat-option>
+      <mat-option value="cancelled">Cancelled</mat-option>
+      <mat-option value="approved">Approved</mat-option>
+      <mat-option value="completed">Completed</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<ng-container *ngIf="isLoading">
+  <shared-loading-spinner></shared-loading-spinner>
+</ng-container>
+<div *ngIf="!isLoading" class="reservations-container">
+  <mat-card *ngFor="let reservation of reservations" class="reservation-card">
+    <mat-card-header>
+      <mat-card-title>Reservation Details</mat-card-title>
+      <mat-card-subtitle class="highlighted-subtitle"
+        >{{ reservation.reservationCode }} -
+        {{ reservation.status }}</mat-card-subtitle
+      >
+    </mat-card-header>
+
+    <mat-card-content>
+      <h3>Customer Info</h3>
+      <p><strong>Name:</strong> {{ reservation.customer.fullName }}</p>
+      <p><strong>Email:</strong> {{ reservation.customer.email }}</p>
+      <p>
+        <strong>Phone Number:</strong> {{ reservation.customer.phoneNumber }}
+      </p>
+
+      <h3>Table Info</h3>
+      <p><strong>Table:</strong> {{ reservation.table.name }}</p>
+      <p><strong>Capacity:</strong> {{ reservation.table.capacity }}</p>
+
+      <h3>Reservation Timing</h3>
+      <p>
+        <strong>Start:</strong>
+        {{ reservation.reservationStart | date : "short" }}
+      </p>
+      <p>
+        <strong>End:</strong> {{ reservation.reservationEnd | date : "short" }}
+      </p>
+      <p><strong>Number of People:</strong> {{ reservation.numberOfPeople }}</p>
+
+      <h3>Preferences</h3>
+      <p>{{ reservation.preferences ?? "N/A" }}</p>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-button (click)="deleteReservation(reservation.reservationId)">Delete</button>
+      <button mat-button (click)="changeStatus(reservation.reservationId)">Change Status</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

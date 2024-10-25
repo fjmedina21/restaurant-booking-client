@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { IsLogged, IsNotLogged } from './guards/auth.guard';
-import { IsAdmin } from './guards/role.guard';
 import { sessionExp } from './guards/sesionExp.guard';
+import { AddReservationComponent } from './reservation/components/add-reservation/add-reservation.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: AddReservationComponent
+  },
   {
     path: 'auth',
     canActivate: [IsLogged],
@@ -17,7 +21,6 @@ const routes: Routes = [
   },
   {
     path: 'reservations',
-    canActivate: [IsNotLogged, sessionExp],
     loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule)
   },
   {

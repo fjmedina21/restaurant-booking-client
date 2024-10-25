@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { TableRoutingModule } from './table-routing.module';
@@ -11,6 +12,7 @@ import { ListTablesComponent } from './components/list-tables/list-tables.compon
     ListTablesComponent
   ],
   imports: [
+    CommonModule,
     TableRoutingModule,
     SharedModule,
     MaterialModule

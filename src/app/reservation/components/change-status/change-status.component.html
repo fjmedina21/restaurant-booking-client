@@ -1,0 +1,17 @@
+<ng-container *ngIf="isLoading">
+  <shared-loading-spinner></shared-loading-spinner>
+</ng-container>
+<div *ngIf="!isLoading" mat-dialog-content>
+  <form class="m-2" >
+    <h1 class="dialog-title">Change Reservation Status</h1>
+
+    <mat-form-field class="container">
+      <mat-label>Select Status</mat-label>
+      <mat-select (selectionChange)="changeStatus($event.value)">
+        <mat-option value="rejected">Rejected</mat-option>
+        <mat-option value="approved">Approved</mat-option>
+        <mat-option value="completed">Completed</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>

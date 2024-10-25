@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { enviroments } from 'src/env/environment.dev';
-import { tap } from 'rxjs';
-import { APIResponse, User } from 'src/app/shared/interfaces/defaultdata.interface';
+import { catchError, of, tap } from 'rxjs';
+import { APIResponse, CrtStaff, Staff } from 'src/app/shared/interfaces/defaultdata.interface';
 import { Router } from '@angular/router';
 import { JWTService } from 'src/app/shared/services/jwt.service';
 import { LoginCredentials } from '../interfaces/login.interface';
 import { ChangePassword } from '../interfaces/changePassword.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { OkDialogComponent } from 'src/app/shared/components/ok-dialog/ok-dialog.component';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -14,18 +16,16 @@ export class AuthService {
   private baseUrl: string = enviroments.baseURL;
   private token!: string;
   private LoggedIn: boolean = false;
-  private bearerToken!: string;
   private headers!: HttpHeaders;
 
   constructor(
     private http: HttpClient,
     private router: Router,
     private jwtService: JWTService,
+    private okDialog: MatDialog
   ) {
     this.loadLocalStore();
-    this.bearerToken = this.getBearerToken();
-    this.headers = new HttpHeaders().set('authorization', this.bearerToken!);
-
+    this.headers = new HttpHeaders().set('Authorization', this.getBearerToken()!);
   }
 
   private saveLocalStore() {
@@ -38,7 +38,16 @@ export class AuthService {
 
   login(credenciales: LoginCredentials) {
     const url = `${this.baseUrl}/auth/login`;
-    return this.http.post<APIResponse<User>>(url, credenciales)
+    return this.http.post<APIResponse<Staff>>(url, credenciales)
+      .pipe(
+        tap(res => this.token = `${res.token}`),
+        tap(() => this.saveLocalStore()),
+      );
+  }
+
+  signup(model: CrtStaff) {
+    const url = `${this.baseUrl}/restaurantStaff`;
+    return this.http.post<APIResponse<Staff>>(url, model)
       .pipe(
         tap(res => this.token = `${res.token}`),
         tap(() => this.saveLocalStore()),
@@ -47,7 +56,12 @@ export class AuthService {
 
   changePassword(passwords: ChangePassword) {
     const url = `${this.baseUrl}/auth/change-password`;
-    return this.http.post<APIResponse<User>>(url, passwords, { headers: this.headers });
+    return this.http.post<APIResponse<Staff>>(url, passwords, { headers: this.headers })
+    .pipe(
+      catchError(({ error }: HttpErrorResponse) => {
+      this.okDialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
+      return of();
+    }),);
   }
 
   logout() {
@@ -64,9 +78,9 @@ export class AuthService {
     return `Bearer ${JSON.parse(localStorage.getItem("token")!)}`;
   }
 
-  getLoggedUser(): User {
-    const { userId, email } = this.jwtService.DecodeToken(this.getToken()!);
-    const user: User = {  staffId: userId, email, firstName: '', lastName: '' };
+  getLoggedUser(): Staff {
+    const { userId, email, firstName, lastName } = this.jwtService.DecodeToken(this.getToken()!);
+    const user: Staff = { staffId: userId, email, firstName, lastName };
     return user;
   }
 
@@ -80,11 +94,6 @@ export class AuthService {
 
   IsLoggedIn(): boolean {
     return this.LoggedIn;
-  }
-
-  getRole() {
-    const { role } = this.jwtService.DecodeToken(this.getToken()!);
-    return role;
   }
 
 }

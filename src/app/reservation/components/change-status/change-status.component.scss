@@ -1,14 +1,3 @@
-mat-dialog-content {
-  .dialog-title {
-    font-size: 24px;
-    font-weight: 600;
-    color: #34495e; // Color del título
-    margin-bottom: 20px; // Espacio debajo del título
-    text-align: center; // Centra el título
-  }
-
-}
-
 .container {
   width: 100%;
   display: grid;
@@ -25,4 +14,14 @@ mat-dialog-content {
   flex: 1; /* Opción para que los botones tengan el mismo tamaño */
   background-color: #34495e;
   color: white;
+}
+
+mat-dialog-content {
+  .dialog-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #34495e; // Color del título
+    margin-bottom: 20px; // Espacio debajo del título
+    text-align: center; // Centra el título
+  }
 }

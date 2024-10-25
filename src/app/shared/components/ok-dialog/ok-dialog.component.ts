@@ -8,7 +8,7 @@ interface dialogData {
 
 @Component({
   selector: 'Ok-dialog',
-  templateUrl: './ok-dialog.component.html'
+  templateUrl: './ok-dialog.component.html',
 })
 export class OkDialogComponent {
 

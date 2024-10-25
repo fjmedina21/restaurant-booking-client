@@ -1,0 +1,86 @@
+$table-card-bg: #f5f5f5; // Color de fondo de la tarjeta de mesa
+$table-header-bg: #00796b; // Color de fondo del encabezado
+$table-text-color: white; // Color del texto en el encabezado
+$table-gap: 16px; // Espacio entre tarjetas
+$table-padding: 16px; // Espaciado interno
+
+.container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1;
+}
+
+.table-card-container {
+  display: grid; // Cambia a grid para las tarjetas
+  grid-template-columns: repeat(4, 1fr); // 4 columnas en pantallas grandes
+  gap: $table-gap; // Espacio entre tarjetas
+  margin: $table-gap; // Espacio alrededor de la tarjeta
+
+  // Responsive Design
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr); // 2 columnas en pantallas pequeñas
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr; // 1 columna en pantallas muy pequeñas
+  }
+
+  // Hacer que la cuarta tarjeta ocupe dos columnas
+
+}
+
+.table-card {
+  background-color: $table-card-bg; // Fondo claro
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Sombra para profundidad
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s; // Para el efecto de hover
+
+  // Estilo del encabezado
+  mat-card-header {
+    background-color: $table-header-bg; // Color de fondo del encabezado
+    color: $table-text-color;
+    padding: $table-padding;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+
+    .highlighted-subtitle {
+      font-size: 14px; // Aumenta el tamaño del texto
+      font-weight: bold; // Aplica negritas
+      color: $table-text-color; // Usa el color destacado para el texto
+    }
+  }
+
+  mat-card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+
+  mat-card-content {
+    padding: $table-padding;
+
+    h3 {
+      font-size: 1.1rem;
+      margin-top: 0;
+      color: $table-header-bg;
+    }
+
+    p {
+      margin: 4px 0;
+      font-size: 0.9rem;
+    }
+  }
+
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: $table-padding;
+    border-top: 1px solid #e0e0e0;
+
+    button {
+      margin-left: 8px;
+    }
+  }
+}

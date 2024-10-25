@@ -1,0 +1,111 @@
+.container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1;
+
+}
+
+.status-dropdown {
+  width: 300px;
+  /* Ajusta el ancho como desees */
+  margin: 20px 0;
+  /* Espaciado alrededor del dropdown */
+  background-color: #f9f9f9;
+  /* Color de fondo */
+  border-radius: 5px;
+  /* Bordes redondeados */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  /* Sombra para darle profundidad */
+}
+
+$reservation-bg: #f5f5f5; // Color de fondo de las tarjetas
+$header-bg: #00796b; // Color de fondo del encabezado
+$text-color: white; // Color del texto en el encabezado
+$gap: 16px; // Espacio entre tarjetas
+$padding: 16px; // Espaciado interno
+
+.reservations-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); // 4 columnas
+  gap: $gap; // Espacio entre las tarjetas
+  padding: $padding; // Espaciado externo
+
+  // Para hacer el wrap a partir de la cuarta tarjeta
+  @media (min-width: 1024px) {
+    .reservation-card:nth-child(n+5) {
+      grid-column: span 1; // A partir de la 5ta tarjeta, ocupa 2 columnas
+    }
+  }
+
+  // Responsive Design
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr); // 2 columnas en pantallas pequeñas
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr; // 1 columna en pantallas muy pequeñas
+  }
+}
+
+.reservation-card {
+  background-color: $reservation-bg; // Fondo claro
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Sombra para profundidad
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s; // Para el efecto de hover
+
+  // Estilo del encabezado
+  mat-card-header {
+    background-color: $header-bg; // Color de fondo del encabezado
+    color: $text-color;
+    padding: $padding;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+
+    .highlighted-subtitle {
+      font-size: 14px; // Aumenta el tamaño del texto
+      font-weight: bold; // Aplica negritas
+      color: $text-color; // Usa el color destacado para el texto
+    }
+  }
+
+  mat-card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+
+  mat-card-subtitle {
+    font-size: 0.875rem;
+    opacity: 0.8; // Leve transparencia
+  }
+
+  // Estilo del contenido
+  mat-card-content {
+    padding: $padding;
+
+    h3 {
+      font-size: 1.1rem;
+      margin-top: 0;
+      color: $header-bg;
+    }
+
+    p {
+      margin: 4px 0;
+      font-size: 0.9rem;
+    }
+  }
+
+  // Estilo de las acciones
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: $padding;
+    border-top: 1px solid #e0e0e0;
+
+    button {
+      margin-left: 8px;
+    }
+  }
+}

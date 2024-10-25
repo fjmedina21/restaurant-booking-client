@@ -2,14 +2,12 @@
 <div mat-dialog-content class="dialog-content">
   <p>{{ data.message }}</p>
 </div>
-<div mat-dialog-actions class="dialog-actions">
-  <button mat-button class="" (click)="onNoClick()">
+<div mat-dialog-actions class="action-buttons">
+  <button mat-button class="btn" (click)="onNoClick()">
     No
   </button>
-  <span class="spacer"></span>
-  <button mat-button class="" (click)="onConfirm()" cdkFocusInitial>
+  <button mat-button class="btn" (click)="onConfirm()" cdkFocusInitial>
     Yes
   </button>
 </div>
-
 

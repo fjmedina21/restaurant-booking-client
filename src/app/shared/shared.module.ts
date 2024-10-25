@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { MaterialModule } from '../material/material.module';
-import { CommonModule } from '@angular/common';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { OkDialogComponent } from './components/ok-dialog/ok-dialog.component';
@@ -37,7 +36,6 @@ import { LayoutPageComponent } from './layout/layout-page.component';
     NgxMaskPipe
   ],
   imports: [
-    CommonModule,
     RouterModule,
     MaterialModule,
     NgxMaskDirective,

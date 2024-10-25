@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, Component, type OnInit } from '@angular/core';
+import { Staff } from './../../../shared/interfaces/defaultdata.interface';
+import { tap } from 'rxjs';
+import { Component, type OnInit } from '@angular/core';
+import { TableService } from 'src/app/table/services/table.service';
+import { StaffService } from '../../services/staff.service';
 
 @Component({
   selector: 'list-staff',
@@ -7,6 +11,17 @@ import { ChangeDetectionStrategy, Component, type OnInit } from '@angular/core';
 })
 export class ListStaffComponent implements OnInit {
 
-  ngOnInit(): void { }
+  staff: Staff[] = [];
 
+  constructor(
+    private staffService: StaffService) {
+
+  }
+
+  ngOnInit(): void {
+    this.staffService.getALl()
+      .pipe(
+        tap(staff => this.staff = staff),
+      ).subscribe();
+  }
 }

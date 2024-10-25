@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { tap } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { User } from 'src/app/shared/interfaces/defaultdata.interface';
+import { Staff } from 'src/app/shared/interfaces/defaultdata.interface';
 
 
 @Component({
@@ -11,7 +11,7 @@ import { User } from 'src/app/shared/interfaces/defaultdata.interface';
 })
 export class DashboardComponent implements OnInit {
 
-  loggedUser!: User;
+  loggedUser!: Staff;
 
   constructor(
     private authService: AuthService,

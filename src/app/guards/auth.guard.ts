@@ -25,7 +25,7 @@ export const IsLogged: CanActivateFn = (route, state) => {
   auth.checkIsLoggedIn();
 
   if (auth.IsLoggedIn()) {
-    router.navigate(['/']);
+    router.navigate(['/home']);
     return false;
   }
 

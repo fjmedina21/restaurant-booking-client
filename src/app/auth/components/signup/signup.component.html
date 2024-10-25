@@ -1,0 +1,43 @@
+<div class="cardsContainer">
+  <div *ngIf="isLoading">
+    <shared-loading-spinner></shared-loading-spinner>
+  </div>
+  <mat-card *ngIf="!isLoading" class="signUpCard">
+    <mat-card-title class="title">Sign Up</mat-card-title>
+    <mat-card-content>
+      <div [formGroup]="signupForm">
+        <mat-form-field appearance="fill" class="input">
+          <mat-label>First Name</mat-label>
+          <input matInput placeholder="John" formControlName="firstName"/>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="input">
+          <mat-label>Last Name</mat-label>
+          <input matInput placeholder="Doe" formControlName="lastName"/>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="input">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="user@domain.com" formControlName="email"/>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="input">
+          <mat-label>Password</mat-label>
+          <input type="password" matInput (keyup.enter)="signUp()" formControlName="password"/>
+        </mat-form-field>
+
+        <mat-card-actions>
+          <button mat-raised-button type="submit" class="signUp" (click)="signUp()" [disabled]="disableBtn">
+            Signup
+          </button>
+        </mat-card-actions>
+
+        <!-- Redirigir al login -->
+        <div class="loginRedirect">
+          <span>Already have an account? </span>
+          <a [routerLink]="['/auth/login']" class="loginLink">Log in here</a>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,28 +1,33 @@
 <div class="cardsContainer">
-  <div *ngIf="isLoading">
+  <ng-container *ngIf="isLoading">
     <shared-loading-spinner></shared-loading-spinner>
-  </div>
+  </ng-container>
   <mat-card *ngIf="!isLoading" class="logInCard">
-    <mat-card-title class="titleLogIn">Welcome</mat-card-title>
+    <mat-card-title class="titleLogIn">Log In</mat-card-title>
     <mat-card-content>
       <div [formGroup]="loginForm">
         <mat-form-field appearance="fill" class="inputLogIn">
           <mat-label>Email</mat-label>
-          <input matInput placeholder="user@domain.com" required formControlName="email" required/>
-          <mat-error>Email Required</mat-error>
+          <input matInput placeholder="johndoe@domain.com" formControlName="email"/>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="inputLogIn">
           <mat-label>Password</mat-label>
-          <input type="password" matInput (keyup.enter)="logIn()" required formControlName="password" required/>
-          <mat-error>Password Required</mat-error>
+          <input type="password" matInput (keyup.enter)="logIn()" formControlName="password"/>
         </mat-form-field>
 
         <mat-card-actions>
-          <button mat-raised-button type="s" class="logIn" (click)="logIn()" [disabled]="disableBtn">
+          <button mat-raised-button type="submit" class="logIn" (click)="logIn()" [disabled]="disableBtn">
             Login
           </button>
         </mat-card-actions>
+
+        <!-- New User Registration Link -->
+        <div class="registerText">
+          <span>Don't have an account? </span>
+          <a [routerLink]="['/auth/signup']" class="registerLink">Sign up here</a>
+        </div>
+
       </div>
     </mat-card-content>
   </mat-card>
