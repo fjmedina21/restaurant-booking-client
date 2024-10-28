@@ -73,6 +73,10 @@ mat-sidenav-container {
         background-color: $highlight-color;
         color: $text-color;
         margin-right: 15px;
+
+        &:hover {
+          background-color: darken($highlight-color, 10%);
+        }
       }
 
       mat-menu {
