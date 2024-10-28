@@ -1,0 +1,31 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - page  # Se activará cuando se haga push a la rama 'page'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # Especifica la versión de Node.js, ajusta según tu proyecto
+
+      - name: Install dependencies
+        run: npm install  # Ajusta el comando si tu proyecto no usa Node.js
+
+      - name: Build project
+        run: npm run build  # Cambia este comando para tu script de construcción
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.TOKEN }}
+          publish_dir: ./dist  # Ajusta la carpeta de salida según tu configuración

@@ -1,4 +1,7 @@
 {
     "files.autoSave": "onWindowChange",
-    "editor.fontFamily": "JetBrains Mono, JetBrains Mono NL"
+    "editor.fontFamily": "JetBrains Mono, JetBrains Mono NL",
+    "github-actions.workflows.pinned.workflows": [
+        "dynamic/pages/pages-build-deployment"
+    ]
 }
