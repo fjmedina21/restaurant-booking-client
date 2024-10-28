@@ -6,7 +6,6 @@ import { catchError, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { OkDialogComponent } from 'src/app/shared/components/ok-dialog/ok-dialog.component';
 import { HttpErrorResponse } from '@angular/common/http';
-import { StaffService } from 'src/app/staff/services/staff.service';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -40,6 +39,7 @@ export class SignupComponent {
       return;
     }
     this.disableBtn = true;
+    this.isLoading = true;
 
     this.authService.signup(this.signupForm.value)
       .pipe(
@@ -51,7 +51,8 @@ export class SignupComponent {
       )
       .subscribe(() => {
         this.disableBtn = false;
-        this.router.navigateByUrl('/home');
+        this.isLoading = false;
+        this.router.navigateByUrl('/reservations');
       });
 
   }

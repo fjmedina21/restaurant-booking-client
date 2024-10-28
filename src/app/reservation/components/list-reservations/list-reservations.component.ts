@@ -1,4 +1,4 @@
-import {  filter, switchMap, tap } from 'rxjs';
+import { filter, switchMap, tap } from 'rxjs';
 import { Component, type OnInit } from '@angular/core';
 import { ReservationService } from '../../services/reservation.service';
 import { Reservation } from 'src/app/shared/interfaces/defaultdata.interface';
@@ -28,10 +28,14 @@ export class ListReservationsComponent implements OnInit {
 
   private loadData() {
     this.isLoading = true;
-    this.reservationService.getALl()
-      .pipe(
-        tap(reservations => this.reservations = reservations),
-      ).subscribe(() => this.isLoading = false);
+
+    setTimeout(() => {
+
+      this.reservationService.getALl()
+        .pipe(
+          tap(reservations => this.reservations = reservations),
+        ).subscribe(() => this.isLoading = false);
+    }, 500);
   }
 
   onStatusSelected(status: string) {
@@ -56,7 +60,7 @@ export class ListReservationsComponent implements OnInit {
     dialogRef.afterClosed()
       .pipe(
         filter((result: boolean) => result),
-        tap(result => {if (result) this.isLoading = true}),
+        tap(result => { if (result) this.isLoading = true; }),
         tap(() => this.isLoading = true),
         switchMap(() => this.reservationService.delete(uid)),
         filter((wasDeleted: boolean) => wasDeleted),
