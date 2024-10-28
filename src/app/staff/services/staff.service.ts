@@ -17,7 +17,7 @@ export class StaffService {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private okDialog: MatDialog
+    private dialog: MatDialog
   ) {
     this.bearerToken = this.authService.getBearerToken();
     this.headers = new HttpHeaders().set('authorization', this.bearerToken!);
@@ -28,7 +28,7 @@ export class StaffService {
     return this.http.get<APIResponse<Staff>>(url, { headers: this.headers })
       .pipe(
         catchError(({ error }: HttpErrorResponse) => {
-          this.okDialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
+          this.dialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
           return of();
         }),
         map(res => res.data),
@@ -40,7 +40,7 @@ export class StaffService {
     return this.http.get<APIResponse<Staff>>(url, { headers: this.headers })
       .pipe(
         catchError(({ error }: HttpErrorResponse) => {
-          this.okDialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
+          this.dialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
           return of();
         }),
         map(res => res.data[0]),
@@ -53,7 +53,7 @@ export class StaffService {
     return this.http.post<APIResponse<Staff>>(url, model, { headers: this.headers })
       .pipe(
         catchError(({ error }: HttpErrorResponse) => {
-          this.okDialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
+          this.dialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
           return of();
         }),
         map(res => res.data[0]),
@@ -65,7 +65,7 @@ export class StaffService {
     return this.http.delete<void>(url, { headers: this.headers })
       .pipe(
         catchError(({ error }: HttpErrorResponse) => {
-          this.okDialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
+          this.dialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
           return of();
         }),
         map(() => true),

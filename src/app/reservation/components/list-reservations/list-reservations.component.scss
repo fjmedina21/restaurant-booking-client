@@ -1,7 +1,14 @@
+$reservation-bg: #f5f5f5; // Color de fondo de las tarjetas
+$header-bg: #00796b; // Color de fondo del encabezado
+$text-color: white; // Color del texto en el encabezado
+$gap: 16px; // Espacio entre tarjetas
+$padding: 16px; // Espaciado interno
+
 .container {
-  width: 100%;
   display: grid;
-  grid-template-columns: 1;
+  grid-template-columns: 1, 1fr; // 4 columnas
+  gap: $gap; // Espacio entre las tarjetas
+  padding: $padding; // Espaciado externo
 
 }
 
@@ -18,11 +25,6 @@
   /* Sombra para darle profundidad */
 }
 
-$reservation-bg: #f5f5f5; // Color de fondo de las tarjetas
-$header-bg: #00796b; // Color de fondo del encabezado
-$text-color: white; // Color del texto en el encabezado
-$gap: 16px; // Espacio entre tarjetas
-$padding: 16px; // Espaciado interno
 
 .reservations-container {
   display: grid;

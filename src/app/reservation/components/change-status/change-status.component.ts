@@ -23,15 +23,20 @@ export class ChangeStatusgComponent {
   ) {
   }
 
-  changeStatus(status: string): void {
+  changeStatus(status: string) {
+    this.isLoading = true;
+    debugger
     this.reservationService.changeStatus(this.uid, status)
       .pipe(
         catchError(({ error }: HttpErrorResponse) => {
           this.dialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
+          this.isLoading = false;
           return of();
         }),
-      )
-      .subscribe(() => {
+      ).subscribe(res => {
+        debugger
+        this.dialog.open(OkDialogComponent, { data: { title: "Success", message: `${"Status changed"}` } });
+        this.isLoading = false;
         this.refDialog.close(true);
       });
   }

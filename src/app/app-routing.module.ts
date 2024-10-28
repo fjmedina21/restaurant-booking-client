@@ -14,13 +14,14 @@ const routes: Routes = [
     canActivate: [IsLogged],
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
   },
-  {
+/*   {
     path: 'home',
     canActivate: [IsNotLogged, sessionExp],
     loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
-  },
+  }, */
   {
     path: 'reservations',
+    canActivate: [IsNotLogged, sessionExp],
     loadChildren: () => import('./reservation/reservation.module').then(m => m.ReservationModule)
   },
   {
@@ -28,19 +29,19 @@ const routes: Routes = [
     canActivate: [IsNotLogged, sessionExp],
     loadChildren: () => import('./table/table.module').then(m => m.TableModule)
   },
-  {
+/*   {
     path: 'staff',
     canActivate: [IsNotLogged, sessionExp],
     loadChildren: () => import('./staff/staff.module').then(m => m.StaffModule)
-  },
+  }, */
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: '',
     pathMatch: 'full'
   },
   {
     path: '**',
-    redirectTo: 'home',
+    redirectTo: '',
   },
 ];
 

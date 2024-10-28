@@ -1,3 +1,6 @@
+<ng-container *ngIf="isLoading">
+  <shared-loading-spinner></shared-loading-spinner>
+</ng-container>
 <div *ngIf="!isLoading" class="container">
   <mat-form-field >
     <mat-label>Select Status</mat-label>
@@ -11,9 +14,6 @@
     </mat-select>
   </mat-form-field>
 </div>
-<ng-container *ngIf="isLoading">
-  <shared-loading-spinner></shared-loading-spinner>
-</ng-container>
 <div *ngIf="!isLoading" class="reservations-container">
   <mat-card *ngFor="let reservation of reservations" class="reservation-card">
     <mat-card-header>

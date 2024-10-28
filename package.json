@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
     "@ngrx/store": "^16.2.0",
+    "@syncfusion/ej2-angular-calendars": "^27.1.55",
     "jwt-decode": "^3.1.2",
     "ngx-mask": "^16.4.2",
     "tslib": "^2.3.0",

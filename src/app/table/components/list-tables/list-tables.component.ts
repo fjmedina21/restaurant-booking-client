@@ -6,6 +6,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog
 import { MatDialog } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { OkDialogComponent } from 'src/app/shared/components/ok-dialog/ok-dialog.component';
+import { AddTableComponent } from '../addTable/addTable.component';
 
 @Component({
   selector: 'list-tables',
@@ -14,8 +15,11 @@ import { OkDialogComponent } from 'src/app/shared/components/ok-dialog/ok-dialog
 })
 export class ListTablesComponent implements OnInit {
 
-  tables: Table[] = [];
-  public isLoading: boolean = false;
+  tables!: Table[];
+  isLoading: boolean = false;
+  minDate = new Date().toISOString().split('T')[0];
+  reservationStart!: Date;
+  reservationEnd = this.reservationStart;
 
   constructor(
     private tableService: TableService,
@@ -35,12 +39,36 @@ export class ListTablesComponent implements OnInit {
       ).subscribe(() => this.isLoading = false);
   }
 
-  onDateChange(date: string) {
+  addTable() {
+    const dialogRef = this.dialog.open(AddTableComponent);
+    dialogRef.afterClosed()
+      .pipe(
+        filter((result: boolean) => result),
+        tap(result => { if (result) this.loadData(); }
+        )
+      ).subscribe();
+  }
+
+  getAvailableTables() {
+    if (!this.reservationStart) {
+      this.dialog.open(OkDialogComponent, { data: { title: "Date and Time Required", message: "Please select a date and time" } });
+      return;
+    }
+
+    this.reservationStart.setMinutes(this.reservationStart.getMinutes() - this.reservationStart.getTimezoneOffset());
+    this.reservationEnd.setMinutes(this.reservationEnd.getMinutes() - this.reservationEnd.getTimezoneOffset());
     this.isLoading = true;
-    this.tableService.getAvailable(date)
+
+    this.tableService.getAvailable(
+      this.reservationStart.toISOString(),
+      this.reservationEnd.toISOString()
+    )
       .pipe(
         tap(tables => this.tables = tables),
-      ).subscribe(() => this.isLoading = false);
+      ).subscribe(() => {
+        this.isLoading = false;
+      });
+
   }
 
   deleteTable(uid: string) {
@@ -48,15 +76,16 @@ export class ListTablesComponent implements OnInit {
     dialogRef.afterClosed()
       .pipe(
         filter((result: boolean) => result),
+        tap(result => { if (result) this.isLoading = true; }),
         switchMap(() => this.tableService.delete(uid)
           .pipe(
             catchError(({ error }: HttpErrorResponse) => {
               this.dialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
+              this.isLoading = false;
               return of();
-            }),
-            tap(() => this.loadData()
-            ))),
+            }))),
         filter((wasDeleted: boolean) => wasDeleted),
+        tap(result => { if (result) this.loadData(); })
       ).subscribe();
   }
 }

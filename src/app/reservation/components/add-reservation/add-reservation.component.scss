@@ -1,0 +1,119 @@
+// Variables de color (ajusta según tu tema)
+$primary-color: #00796b; // Color primario
+$secondary-color: #34495e; // Color secundario
+$background-color: #f8f9fa; // Color de fondo
+$text-color: #343a40; // Color del texto
+
+.container-btn {
+  margin: 20px;
+  background-color: $background-color; // Fondo del contenedor
+  border-radius: 8px;
+  padding: 20px; // Espaciado interno
+  display: flex;
+  gap: 10px; // Espaciado entre elementos
+  justify-content: center; // Centrar los elementos en el contenedor
+  align-items: center; // Alinear verticalmente
+
+  input {
+    width: 50%; // Ancho del input
+    padding: 10px; // Espaciado interno
+    border: 1px solid lighten($primary-color, 20%); // Borde claro
+    border-radius: 5px; // Bordes redondeados
+    transition: border-color 0.3s; // Transición de color en el borde
+
+    &:focus {
+      border-color: $primary-color; // Cambiar color al enfocar
+      outline: none; // Eliminar borde por defecto del navegador
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); // Sombra suave
+    }
+  }
+
+  button {
+    background-color: $primary-color; // Color del botón
+    color: white; // Color del texto del botón
+    width: 45%; // Ancho del botón
+    border: none; // Eliminar bordes
+    border-radius: 5px; // Bordes redondeados
+    padding: 10px 20px; // Espaciado interno
+    transition: background-color 0.3s, box-shadow 0.3s; // Transiciones para color y sombra
+    cursor: pointer; // Cambiar cursor al apuntar
+
+    &:hover {
+      background-color: darken($primary-color, 10%); // Color más oscuro al pasar el ratón
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15); // Sombra al pasar el ratón
+    }
+
+    &:disabled {
+      background-color: $secondary-color; // Color cuando está deshabilitado
+      cursor: not-allowed; // Cambiar cursor cuando está deshabilitado
+      box-shadow: none; // Sin sombra cuando está deshabilitado
+    }
+  }
+}
+
+
+.container {
+  margin: 20px;
+  background-color: $background-color; // Fondo del contenedor
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); // Sombra para dar profundidad
+  padding: 20px; // Espaciado interno
+
+  mat-card {
+    padding: 20px; // Espaciado interno del card
+    border-radius: 8px;
+    background-color: white; // Fondo blanco para el card
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); // Sombra suave
+
+    mat-card-title {
+      font-size: 1.5rem; // Tamaño de fuente del título
+      color: $primary-color; // Color del título
+      margin-bottom: 20px; // Espaciado inferior
+    }
+
+    mat-card-content {
+      display: flex;
+      flex-direction: column; // Orientación vertical
+      gap: 15px; // Espaciado entre elementos
+    }
+
+    mat-form-field {
+      width: 100%; // Ancho completo para los campos del formulario
+
+      // Estilo para las etiquetas
+      mat-label {
+        font-size: 1rem; // Tamaño de fuente
+        color: $text-color; // Color del texto
+      }
+
+      input,
+      mat-select {
+        border-radius: 4px; // Bordes redondeados
+        padding: 10px; // Espaciado interno
+      }
+    }
+
+    mat-card-actions {
+      display: flex;
+      justify-content: flex-end; // Alinear el botón a la derecha
+      margin-top: 20px; // Espaciado superior
+
+      button {
+        background-color: $primary-color; // Color del botón
+        color: white; // Color del texto del botón
+        border-radius: 5px; // Bordes redondeados
+        padding: 10px 20px; // Espaciado interno
+        transition: background-color 0.3s; // Transición de color
+
+        &:hover {
+          background-color: darken($primary-color, 10%); // Color más oscuro al pasar el ratón
+        }
+
+        &:disabled {
+          background-color: $secondary-color; // Color cuando está deshabilitado
+          cursor: not-allowed; // Cambiar cursor cuando está deshabilitado
+        }
+      }
+    }
+  }
+}

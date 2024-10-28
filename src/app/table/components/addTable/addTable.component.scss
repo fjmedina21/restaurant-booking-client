@@ -1,0 +1,23 @@
+// styles.scss o styles del componente específico
+$primary-color: #34495e; // Cambia a tu color principal
+$secondary-color: #f5f5f5; // Color de fondo del modal
+$button-hover-color: darken($primary-color, 10%);
+
+.mat-card {
+  width: 100%; // Ajusta el ancho del modal
+  margin: auto; // Centra el modal en la pantalla
+  border-radius: 8px; // Bordes redondeados
+
+  mat-form-field {
+    width: 100%; // Asegúrate de que los campos ocupen todo el ancho
+  }
+
+  .btn {
+    width: 100%; // Asegúrate de que el botón ocupe todo el ancho
+    background-color: $primary-color; // Color de fondo del botón
+    color: $secondary-color; // Color del texto del botón
+    &:hover {
+      background-color: $button-hover-color; // Color al pasar el mouse
+    }
+  }
+}

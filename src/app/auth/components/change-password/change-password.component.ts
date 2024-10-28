@@ -24,27 +24,30 @@ export class ChangePasswordComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    public passwordDialog: MatDialogRef<ChangePasswordComponent>,
-    private okDialog: MatDialog,
+    public refDialog: MatDialogRef<ChangePasswordComponent>,
+    private dialog: MatDialog,
 
   ) { }
 
   onNoClick(): void {
-    this.passwordDialog.close(false);
+    this.refDialog.close(false);
   }
 
   onSubmit(): void {
+    this.isLoading = true;
     if (!this.changePasswordForm.valid) return;
     this.authService.changePassword(this.changePasswordForm.value)
       .pipe(
         catchError(({ error }: HttpErrorResponse) => {
-          this.okDialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
+          this.isLoading = false;
+          this.dialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
           return of();
         }),
       )
       .subscribe((res: APIResponse<Staff>) => {
-        this.passwordDialog.close(true);
-        this.okDialog.open(OkDialogComponent, { data: { title: "Success", message: `${res.message ?? "Done!!"}` } });
+        this.isLoading = false;
+        this.dialog.open(OkDialogComponent, { data: { title: "Success", message: `${res.message ?? "Done!!"}` } });
+        this.refDialog.close();
       });
 
   }

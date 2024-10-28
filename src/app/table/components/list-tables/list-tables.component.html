@@ -1,15 +1,37 @@
-<div *ngIf="!isLoading" class="container">
-  <mat-form-field appearance="fill">
-    <mat-label>Select Date</mat-label>
-    <input matInput [matDatepicker]="picker" placeholder="Choose a date" (dateChange)="onDateChange($event.value)">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-</div>
 <ng-container *ngIf="isLoading">
   <shared-loading-spinner></shared-loading-spinner>
 </ng-container>
+
+<div *ngIf="!isLoading" class="container">
+  <div class="row">
+    <div class="col custom-col">
+      <ejs-datetimepicker
+        placeholder="Choose a date and time"
+        format="dd/MMM/yyyy hh:mm a"
+        [min]="minDate"
+        [(value)]="reservationStart"
+        class="customWidth"
+      ></ejs-datetimepicker>
+    </div>
+    <div class="col custom-col">
+      <ejs-datetimepicker
+        placeholder="Choose a date and time"
+        format="dd/MMM/yyyy hh:mm a"
+        [min]="minDate"
+        [(value)]="reservationEnd"
+        class="customWidth"
+      ></ejs-datetimepicker>
+    </div>
+  </div>
+  <div class="row button-row">
+    <button (click)="getAvailableTables()" class="btn btn-primary">
+      Get Available Tables
+    </button>
+    <button (click)="addTable()" class="btn btn-secondary">Add Table</button>
+  </div>
+</div>
 <div *ngIf="!isLoading" class="table-card-container">
+
   <mat-card *ngFor="let table of tables" class="table-card">
     <mat-card-header>
       <mat-card-title>Table Details</mat-card-title>

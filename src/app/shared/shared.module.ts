@@ -39,8 +39,8 @@ import { LayoutPageComponent } from './layout/layout-page.component';
     RouterModule,
     MaterialModule,
     NgxMaskDirective,
-    NgxMaskPipe
+    NgxMaskPipe,
   ],
-  providers: [  provideNgxMask() ]
+  providers: [provideNgxMask()]
 })
 export class SharedModule { }

@@ -1,1 +1,115 @@
-works!!
+<div class="container-btn" [formGroup]="reservationForm">
+  <input
+    type="text"
+    placeholder="type your reservation code"
+    formControlName="reservationCode"
+  />
+  <button (click)="loadModifyData()" [disabled]="disableBtn">Modify Reservation</button>
+  <button (click)="cancel()" [disabled]="disableBtn">Cancel Reservation</button>
+</div>
+<div class="container">
+  <ng-container *ngIf="isLoading">
+    <shared-loading-spinner></shared-loading-spinner>
+  </ng-container>
+  <mat-card *ngIf="!isLoading">
+    <mat-card-title>Make Reservation</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="reservationForm">
+        <!-- Reservation Info -->
+        <mat-card-subtitle>Reservation Info</mat-card-subtitle>
+        <ng-container>
+          <ejs-datetimepicker
+            placeholder="Choose a date and time"
+            format="dd/MMM/yyyy hh:mm a"
+            [min]="minDate"
+            width="50%"
+            formControlName="reservationStart"
+          ></ejs-datetimepicker>
+
+          <ejs-datetimepicker
+            placeholder="Choose a date and time"
+            format="dd/MMM/yyyy hh:mm a"
+            [min]="minDate"
+            width="50%"
+            formControlName="reservationEnd"
+            (valueChange)="loadTables()"
+          ></ejs-datetimepicker>
+
+          <mat-form-field>
+            <mat-label>Select Table</mat-label>
+            <mat-select required formControlName="tableId">
+              <mat-option *ngFor="let item of tables" [value]="item.tableId">
+                {{ item.name }} -
+                {{ "Capacity: " + item.capacity + " persons" }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field required>
+            <mat-label>Number Of People</mat-label>
+            <input
+              matInput
+              type="number"
+              placeholder="1"
+              min="1"
+              formControlName="numberOfPeople"
+            />
+          </mat-form-field>
+
+          <mat-form-field required>
+            <mat-label>Preferences</mat-label>
+            <input matInput type="text" formControlName="preferences" />
+          </mat-form-field>
+        </ng-container>
+
+        <!-- Customer Info -->
+        <ng-container *ngIf="!isUpdating" formGroupName="customer">
+          <mat-card-subtitle>Customer Info</mat-card-subtitle>
+          <mat-form-field required>
+            <mat-label>Full Name</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="John Doe"
+              formControlName="fullName"
+            />
+          </mat-form-field>
+
+          <mat-form-field required>
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="johndoe@domain.com"
+              formControlName="email"
+            />
+          </mat-form-field>
+
+          <mat-form-field required>
+            <mat-label>Tel./Cel.</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="000-000-0000"
+              formControlName="phoneNumber"
+            />
+          </mat-form-field>
+        </ng-container>
+      </form>
+
+      <ng-container>
+        <!-- actions -->
+        <mat-card-actions>
+          <button
+            mat-raised-button
+            type="submit"
+            (click)="submit()"
+            [disabled]="disableBtn"
+          >
+            Save
+          </button>
+        </mat-card-actions>
+      </ng-container>
+    </mat-card-content>
+  </mat-card>
+</div>

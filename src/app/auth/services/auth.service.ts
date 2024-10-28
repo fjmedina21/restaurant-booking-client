@@ -22,7 +22,7 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
     private jwtService: JWTService,
-    private okDialog: MatDialog
+    private dialog: MatDialog
   ) {
     this.loadLocalStore();
     this.headers = new HttpHeaders().set('Authorization', this.getBearerToken()!);
@@ -58,10 +58,11 @@ export class AuthService {
     const url = `${this.baseUrl}/auth/change-password`;
     return this.http.post<APIResponse<Staff>>(url, passwords, { headers: this.headers })
     .pipe(
-      catchError(({ error }: HttpErrorResponse) => {
-      this.okDialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
+  /*     catchError(({ error }: HttpErrorResponse) => {
+      this.dialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
       return of();
-    }),);
+    }) */
+  );
   }
 
   logout() {

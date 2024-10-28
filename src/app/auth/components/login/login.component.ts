@@ -37,6 +37,7 @@ export class LoginComponent {
       this.loginForm.markAllAsTouched();
       return;
     }
+    this.isLoading = true;
     this.disableBtn = true;
 
     this.authService.login(this.loginForm.value)
@@ -49,7 +50,8 @@ export class LoginComponent {
       )
       .subscribe(() => {
         this.disableBtn = false;
-        this.router.navigateByUrl('/home');
+        this.isLoading = false;
+        this.router.navigateByUrl('/reservations');
       });
 
   }

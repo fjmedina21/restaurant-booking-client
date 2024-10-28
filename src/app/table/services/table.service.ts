@@ -19,7 +19,7 @@ export class TableService {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private okDialog: MatDialog
+    private dialog: MatDialog
   ) {
     this.bearerToken = this.authService.getBearerToken();
     this.headers = new HttpHeaders().set('authorization', this.bearerToken!);
@@ -30,19 +30,22 @@ export class TableService {
     return this.http.get<APIResponse<Table>>(url, { headers: this.headers })
       .pipe(
         catchError(({ error }: HttpErrorResponse) => {
-          this.okDialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
+          this.dialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
           return of();
         }),
         map(res => res.data),
       );
   }
 
-  getAvailable(reservationStart: string): Observable<Table[]> {
-    const url = `${this.baseUrl}/tables/available-tables?reservationStart=${reservationStart}`;
-    return this.http.get<APIResponse<Table>>(url, { headers: this.headers })
+  // public endpoint
+  getAvailable(reservationStart: string, reservationEnd: string): Observable<Table[]> {
+    let param = `?reservationStart=${reservationStart}&reservationEnd=${reservationEnd}`;
+    let url = `${this.baseUrl}/tables/available-tables`;
+    if (reservationStart !== 'undefined') url = url.concat(param);
+    return this.http.get<APIResponse<Table>>(url)
       .pipe(
         catchError(({ error }: HttpErrorResponse) => {
-          this.okDialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
+          this.dialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
           return of();
         }),
         map(res => res.data),
@@ -54,7 +57,7 @@ export class TableService {
     return this.http.get<APIResponse<Table>>(url, { headers: this.headers })
       .pipe(
         catchError(({ error }: HttpErrorResponse) => {
-          this.okDialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
+          this.dialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
           return of();
         }),
         map(res => res.data[0]),
@@ -65,10 +68,10 @@ export class TableService {
     const url = `${this.baseUrl}/tables`;
     return this.http.post<APIResponse<Table>>(url, model, { headers: this.headers })
       .pipe(
-        catchError(({ error }: HttpErrorResponse) => {
-          this.okDialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
+/*         catchError(({ error }: HttpErrorResponse) => {
+          this.dialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
           return of();
-        }),
+        }), */
         map(res => res.data[0]),
       );
   }
@@ -77,10 +80,10 @@ export class TableService {
     const url = `${this.baseUrl}/tables/${uid}`;
     return this.http.delete<void>(url, { headers: this.headers })
       .pipe(
-        catchError(({ error }: HttpErrorResponse) => {
-          this.okDialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
+ /*        catchError(({ error }: HttpErrorResponse) => {
+          this.dialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
           return of();
-        }),
+        }), */
         map(() => true),
       );
   }

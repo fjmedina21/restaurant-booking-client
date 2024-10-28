@@ -5,6 +5,7 @@ import { ChangePasswordComponent } from 'src/app/auth/components/change-password
 import { Staff } from '../interfaces/defaultdata.interface';
 import { ConfirmDialogComponent } from '../components/confirm-dialog/confirm-dialog.component';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'shared-layout',
@@ -39,11 +40,7 @@ export class LayoutPageComponent implements OnInit {
   }
 
   changePassword() {
-    const dialogRef = this.dialog.open(ChangePasswordComponent, { disableClose: true });
-    dialogRef.afterClosed()
-      .pipe(
-        filter((result: boolean) => result),
-      ).subscribe();
+    this.dialog.open(ChangePasswordComponent, { disableClose: true });
   }
 
 }

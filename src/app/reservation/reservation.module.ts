@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeStatusgComponent } from './components/change-status/change-status.component';
 import { AddReservationComponent } from './components/add-reservation/add-reservation.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     ReservationRoutingModule,
     SharedModule,
-    MaterialModule
+    MaterialModule,
+    DateTimePickerModule
   ]
 })
 export class ReservationModule { }
