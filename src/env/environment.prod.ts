@@ -1,4 +1,4 @@
 
 export const enviroments = {
-  baseURL: 'https://apiconsultorio.isfodosu.edu.do'
+  baseURL: 'https://restaurantbooking.somee.com'
 };
