@@ -1,10 +1,12 @@
-import { filter, switchMap, tap } from 'rxjs';
+import { catchError, filter, of, switchMap, tap } from 'rxjs';
 import { Component, type OnInit } from '@angular/core';
 import { ReservationService } from '../../services/reservation.service';
 import { Reservation } from 'src/app/shared/interfaces/defaultdata.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangeStatusgComponent } from '../change-status/change-status.component';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
+import { HttpErrorResponse } from '@angular/common/http';
+import { OkDialogComponent } from 'src/app/shared/components/ok-dialog/ok-dialog.component';
 
 @Component({
   selector: 'list-reservations',
@@ -62,7 +64,14 @@ export class ListReservationsComponent implements OnInit {
         filter((result: boolean) => result),
         tap(result => { if (result) this.isLoading = true; }),
         tap(() => this.isLoading = true),
-        switchMap(() => this.reservationService.delete(uid)),
+        switchMap(() => this.reservationService.delete(uid)
+          .pipe(
+            catchError(({ error }: HttpErrorResponse) => {
+              this.dialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
+              this.isLoading = false;
+              return of()
+            }
+          ))),
         filter((wasDeleted: boolean) => wasDeleted),
         tap(result => { if (result) this.loadData(); })
       ).subscribe();

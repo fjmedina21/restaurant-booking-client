@@ -4,7 +4,7 @@ import { AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors } 
 @Injectable({ providedIn: 'root' })
 export class ValidatorsService {
 
-  public firstNameAndLastnamePattern: string = '([a-zA-Z]+) ([a-zA-Z]+)';
+  public namePattern: string = "([a-zA-Z]+(?:['-][a-zA-Z]+)*)(?:\\s+[a-zA-Z]+(?:['-][a-zA-Z]+)*)*";
   public emailPattern: string = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$";
   public telPattern: string = "^[0-9]{3}[-][0-9]{3}[-][0-9]{4}$";
 

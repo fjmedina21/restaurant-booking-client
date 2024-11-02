@@ -114,10 +114,10 @@ export class ReservationService {
     const url = `${this.baseUrl}/reservations/${uid}`;
     return this.http.delete<void>(url, { headers: this.headers })
       .pipe(
-        catchError(({ error }: HttpErrorResponse) => {
+/*         catchError(({ error }: HttpErrorResponse) => {
           this.dialog.open(OkDialogComponent, { data: { title: "Failed", message: `${error.message ?? "Something happend!!"}` } });
           return of();
-        }),
+        }), */
         map(() => true),
       );
   }

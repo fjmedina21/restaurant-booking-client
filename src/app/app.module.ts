@@ -9,6 +9,7 @@ import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { MaskedDateTimeService } from '@syncfusion/ej2-angular-calendars';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     SharedModule,
     MaterialModule,
   ],
-  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, MaskedDateTimeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -10,6 +10,8 @@
         format="dd/MMM/yyyy hh:mm a"
         [min]="minDate"
         [(value)]="reservationStart"
+        [enableMask]="true"
+        [maskPlaceholder]="true"
         class="customWidth"
       ></ejs-datetimepicker>
     </div>
@@ -19,6 +21,8 @@
         format="dd/MMM/yyyy hh:mm a"
         [min]="minDate"
         [(value)]="reservationEnd"
+        [enableMask]="true"
+        [maskPlaceholder]="true"
         class="customWidth"
       ></ejs-datetimepicker>
     </div>

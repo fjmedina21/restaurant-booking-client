@@ -4,7 +4,9 @@
     placeholder="type your reservation code"
     formControlName="reservationCode"
   />
-  <button (click)="loadModifyData()" [disabled]="disableBtn">Modify Reservation</button>
+  <button (click)="loadModifyData()" [disabled]="disableBtn">
+    Modify Reservation
+  </button>
   <button (click)="cancel()" [disabled]="disableBtn">Cancel Reservation</button>
 </div>
 <div class="container">
@@ -22,6 +24,8 @@
             placeholder="Choose a date and time"
             format="dd/MMM/yyyy hh:mm a"
             [min]="minDate"
+            [enableMask]="true"
+            [maskPlaceholder]="true"
             width="50%"
             formControlName="reservationStart"
           ></ejs-datetimepicker>
@@ -30,6 +34,8 @@
             placeholder="Choose a date and time"
             format="dd/MMM/yyyy hh:mm a"
             [min]="minDate"
+            [enableMask]="true"
+            [maskPlaceholder]="true"
             width="50%"
             formControlName="reservationEnd"
             (valueChange)="loadTables()"

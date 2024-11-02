@@ -1,5 +1,4 @@
-import { UpdReservation } from './../../../shared/interfaces/defaultdata.interface';
-import { catchError, of, tap } from 'rxjs';
+import { catchError, of } from 'rxjs';
 import { HttpErrorResponse } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
@@ -44,9 +43,9 @@ export class AddReservationComponent implements OnInit {
     numberOfPeople: [, Validators.required],
     preferences: [, []],
     customer: this.fb.group({
-      fullName: [, [Validators.required, Validators.pattern(this.validatorsService.firstNameAndLastnamePattern)], []],
+      fullName: [, [Validators.required, Validators.pattern(this.validatorsService.namePattern)], []],
       email: [, [Validators.required, Validators.pattern(this.validatorsService.emailPattern)], []],
-      phoneNumber: [, [Validators.required], []]
+      phoneNumber: [, [Validators.required, Validators.pattern(this.validatorsService.telPattern)], []]
     }),
   });
 
